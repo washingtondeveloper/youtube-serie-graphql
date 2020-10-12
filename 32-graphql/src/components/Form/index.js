@@ -3,7 +3,7 @@ import { useContatosContext } from "../../context/ContatosContext";
 
 export default function Form() {
 
-  const { form }  = useContatosContext()
+  const { form } = useContatosContext()
 
   return (
     <form onSubmit={form.handleSubmit}>

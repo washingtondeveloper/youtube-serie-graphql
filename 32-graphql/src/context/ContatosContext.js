@@ -22,36 +22,32 @@ export default function ContatosContextProvider({ children }) {
   const { data, loading } = useQuery(GET_CONTATOS);
   const [criarContato] = useMutation(ADD_CONTATO, cacheCreate);
   const [deletarContato] = useMutation(REMOVE_CONTATO);
-  const [atualizarContato] = useMutation(UPDATE_CONTATO);
+  const [atualizarContato] = useMutation(UPDATE_CONTATO)
 
-  const [refId, refNome, refEmail, refTelefone] = useMyRef(4)
+  const [refId, refNome, refEmail, refTelefone] = useMyRef(4);
 
   function handleSubmit(event) {
     event.preventDefault();
 
     if(refId.current.value) {
-      const updateContato = {
-        id: parseInt(refId.current.value),
-        nome:refNome.current.value,
-        email:refEmail.current.value,
-        telefone:refTelefone.current.value
-      }
-
       atualizarContato({
-        variables: updateContato
-      });
-
+        variables: {
+          id: parseInt(refId.current.value),
+          nome: refNome.current.value,
+          email: refEmail.current.value,
+          telefone: refTelefone.current.value
+        }
+      })
       refId.current.value = '';
     } else {
       criarContato({
         variables: {
           nome:refNome.current.value,
-          email:refEmail.current.value,
-          telefone:refTelefone.current.value,
+          email: refEmail.current.value,
+          telefone: refTelefone.current.value,
         }
       });
     }
-
 
     refNome.current.value = '';
     refEmail.current.value = '';
